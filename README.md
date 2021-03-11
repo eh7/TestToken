@@ -24,6 +24,8 @@ deploy
 let instance = await TestToken.at('address of contract see output from last command deploy')
 
 instance.getTotalUSDPriceMintedTokens()
+
 instance.setTokenUSDPrice(150)
+
 instance.getTokenUSDPrice(150)
 
