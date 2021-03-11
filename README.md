@@ -7,6 +7,8 @@ Specifications;
 2. Add Contract function for Get/Set Token USD price 
 3. Add Contract function to get Total USD price of minted tokens (Contract Owner can be able to call This function )
 
+TESTING
+
 In terminal command line:
 
 npm install -g truffle
