@@ -2,7 +2,7 @@ pragma solidity ^0.5.0;
 
 contract TestToken {
   string  public name = "TestToken";
-  string  public symbol = "TT";
+  string  public symbol = "Test";
   uint256 public totalSupply;
   uint8   public decimals = 0;
 
