@@ -9,23 +9,26 @@ Specifications;
 
 TESTING
 
-In terminal command line:
+commands to setup dev environment:
+> git clone https://github.com/eh7/TestToken.git
+> cd TestToken
+> npm install -g truffle
 
-npm install -g truffle
+THEN TO TEST
 
-truffle test
+> truffle test
 
 OR
 
-truffle develop
+> truffle develop
 
-deploy
+> deploy
 
-let instance = await TestToken.at('address of contract see output from last command deploy')
+> let instance = await TestToken.at('address of contract see output from last command deploy')
 
-instance.getTotalUSDPriceMintedTokens()
+> instance.getTotalUSDPriceMintedTokens()
 
-instance.setTokenUSDPrice(150)
+> instance.setTokenUSDPrice(150)
 
-instance.getTokenUSDPrice()
+> instance.getTokenUSDPrice()
 
