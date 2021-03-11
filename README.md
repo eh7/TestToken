@@ -7,12 +7,17 @@ Specifications;
 2. Add Contract function for Get/Set Token USD price 
 3. Add Contract function to get Total USD price of minted tokens (Contract Owner can be able to call This function )
 
-TESTING
+
+TESTING SETUP
 
 commands to setup dev environment:
+
 > git clone https://github.com/eh7/TestToken.git
+
 > cd TestToken
+
 > npm install -g truffle
+
 
 THEN TO TEST
 
@@ -20,11 +25,13 @@ THEN TO TEST
 
 OR
 
+TO INTERACT INTERACTIVLY 
+
 > truffle develop
 
 > deploy
 
-> let instance = await TestToken.at('address of contract see output from last command deploy')
+> let instance = await TestToken.at('address of contract see output from last command deploy, TestToken.address')
 
 > instance.getTotalUSDPriceMintedTokens()
 
@@ -32,3 +39,4 @@ OR
 
 > instance.getTokenUSDPrice()
 
+> ...other.contract.methods...
