@@ -27,5 +27,5 @@ instance.getTotalUSDPriceMintedTokens()
 
 instance.setTokenUSDPrice(150)
 
-instance.getTokenUSDPrice(150)
+instance.getTokenUSDPrice()
 
