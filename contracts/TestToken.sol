@@ -8,6 +8,8 @@ contract TestToken {
 
   uint256 priceUSDForToken;
 
+  address public owner;
+
   event Transfer(
     address indexed _from,
     address indexed _to,
@@ -25,6 +27,7 @@ contract TestToken {
   mapping(address => mapping(address => uint256)) public allowed;
 
   constructor(uint256 _initialSupply, uint256 _initialUSDForToken) public {
+    owner = msg.sender;
     balanceOf[msg.sender] = _initialSupply;
     totalSupply = _initialSupply;
     priceUSDForToken = _initialUSDForToken;
