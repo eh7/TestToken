@@ -23,7 +23,6 @@ contract TestToken {
   );
 
   mapping(address => uint256) public balanceOf;
-  // mapping(address => mapping(address => uint256)) public allowance;
   mapping(address => mapping(address => uint256)) public allowed;
 
   constructor(uint256 _initialSupply, uint256 _initialUSDForToken) public {
