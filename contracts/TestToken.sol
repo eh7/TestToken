@@ -61,20 +61,21 @@ contract TestToken {
     return allowed[_owner][_spender];
   }
 
-  function getTokenUSDPrice() public view returns (uint256 price) {
+  function getTokenUSDRate() public view returns (uint256 price) {
     return priceUSDForToken;
   }
 
-  function setTokenUSDPrice(uint256 _price) public returns (bool success) {
+  function setTokenUSDRate(uint256 _rate) public returns (bool success) {
     // QUESTIONS: should this function be only accessed
     // by the contract owner?
     // currently anyone can set this!
-    priceUSDForToken = _price;
+    priceUSDForToken = _rate;
     return true;
   }
 
   function getTotalUSDPriceMintedTokens() public view returns (uint256 price) {
     // check if contract owner if not throw
+    require(owner == msg.sender);
     return (totalSupply * priceUSDForToken);
   }
 
