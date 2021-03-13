@@ -45,9 +45,13 @@ TO INTERACT WITH CONTRACT IN THE CONSOLE
 # PART 2 Task
 
 -Create simple ERC20 token 
+
 -Create library to add/remove address to blacklist in contract(be able to call add/remove function for only contract owner) 
+
 -When user mint token, check if that user address is in blacklist or not 
+
 -if user address is not in blacklist, then check if current date is before 3/31/2021. 
+
 -if current date is before 3/31/2021, user can't mint token
 
 
