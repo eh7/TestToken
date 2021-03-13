@@ -14,7 +14,7 @@ library BlacklistLib {
     // blacklist.push(blockAddress);
     for (uint i = 0; i < blacklist.length; i++)
       if (blacklist[i] == thisAddress) {
-        address element = blacklist[i];
+        // address element = blacklist[i];
         blacklist[i] = blacklist[blacklist.length - 1];
         delete blacklist[blacklist.length - 1];
         blacklist.length--;
@@ -37,12 +37,14 @@ contract Test {
 
   address public owner;
   uint256 public totalSupply;
+  uint256 public startDate;
 
   event LogBL(address[] blacklist);
 
-  constructor() public {
+  constructor(uint256 _startDate) public {
     owner = msg.sender;
     totalSupply = 0;
+    startDate = _startDate;
     // blacklist.add(msg.sender);
     // blacklist.add(msg.sender);
   }
@@ -54,6 +56,7 @@ contract Test {
 
   function blacklistAdd(address to) public returns (bool success) {
     require(owner == msg.sender);
+    require(block.timestamp >= startDate);
     blacklist.add(to);
     emit LogBL(blacklist);
     return true;

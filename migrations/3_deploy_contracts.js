@@ -18,7 +18,14 @@ module.exports = function(deployer) {
   deployer.deploy(Test);
 */
 
-  deployer.deploy(Test);
+  const sDate = new Date(2021, 2, 13);
+  // const sDate = new Date(2021, 2, 31);
+  const startDateInUnixTimestamp = sDate / 1000;
+  // console.log('dddddddddddddddddddddddddd', startDateInUnixTimestamp);
+  // console.log('dddddddddddddddddddddddddd', endDateInUnixTimestamp);
+  deployer.deploy(Test, startDateInUnixTimestamp);
+
+  //deployer.deploy(Test);
   deployer.deploy(Token);
 
 };

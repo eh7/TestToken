@@ -3,10 +3,26 @@ const Test = artifacts.require("Test");
 contract('Test', async (accounts) => {
 
   it('should create Test owned by first account', async () => {
+/*
+    const date = (new Date("2021/3/31"));
+    const startDateInUnixTimestamp = date / 1000;
+*/
     const testInstance = await Test.deployed();
     const owner = await testInstance.owner();
     // console.log(owner);
     assert.equal(owner, accounts[0], `OWNER ERR - ${owner} doesn't mattch ${accounts[0]}`);
+
+    let startDate = await testInstance.startDate();
+//    let endDate   = await testInstance.endDate();
+//    assert.equal(startDate.toString(), '1617145200', `START DATE ERR`);
+//    assert.equal(endDate.toString(), '1617231600', `END DATE ERR`);
+/*
+    console.log(
+      "dates: ",
+      startDate.toString(),
+      endDate.toString(),
+    );
+*/
 
     let out = await testInstance.blacklistAdd(accounts[1]);
     console.log(out.logs[0].args.blacklist);
