@@ -30,6 +30,7 @@ library BlacklistLib {
   }
 }
 
+// contract Test {
 contract Test {
 
   address[] public blacklist;

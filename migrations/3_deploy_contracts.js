@@ -1,6 +1,7 @@
 //const StringToUintMap = artifacts.require("../lib/StringToUintMap.sol");
 const Test = artifacts.require("Test");
 const Token = artifacts.require("Token");
+const TestToken2 = artifacts.require("TestToken2");
 
 module.exports = function(deployer) {
 
@@ -24,8 +25,9 @@ module.exports = function(deployer) {
   // console.log('dddddddddddddddddddddddddd', startDateInUnixTimestamp);
   // console.log('dddddddddddddddddddddddddd', endDateInUnixTimestamp);
   deployer.deploy(Test, startDateInUnixTimestamp);
+  deployer.deploy(TestToken2, startDateInUnixTimestamp, 1000, 2);
 
   //deployer.deploy(Test);
-  deployer.deploy(Token);
+//  deployer.deploy(Token);
 
 };
