@@ -1,4 +1,28 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.4;
+
+/*
+// -Create library to add/remove address to blacklist in contract(be able to call add/remove function for only contract owner) 
+// -When user mint token, check if that user address is in blacklist or not 
+// -if user address is not in blacklist, then check if current date is before 3/31/2021. 
+// -if current date is before 3/31/2021, user can't mint token
+*/
+
+library Blacklist {
+/*
+  function add(uint[] storage self, uint value) public view returns (uint) {
+    return uint(-1);
+  }
+
+  function remove(uint[] storage self, uint value) public view returns (uint) {
+    return uint(-1);
+  }
+
+  function indexOf(address[] storage self, address thisAddress) public view returns (uint) {
+    for (uint i = 0; i < self.length; i++) if (self[i] == thisAddress) return i;
+    return uint(-1);
+  }
+*/
+}
 
 contract TestToken {
   string  public name = "TestToken";
@@ -9,6 +33,10 @@ contract TestToken {
   uint256 priceUSDForToken;
 
   address public owner;
+
+//  using Blacklist for address[];
+  address[] blacklist;
+  using Blacklist for *;
 
   event Transfer(
     address indexed _from,

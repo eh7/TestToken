@@ -66,4 +66,12 @@ contract('TestToken', async (accounts) => {
 
   });
 
+  it('test Blacklist library', async () => {
+    const amount = 1000;
+    const defaultRateUSD = 2;
+    const instance = await TestToken.deployed(amount, defaultRateUSD);
+
+    // console.log('blacklist:', await instance.blacklist());
+  });
+
 });
