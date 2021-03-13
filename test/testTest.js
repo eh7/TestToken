@@ -14,7 +14,7 @@ contract('Test', async (accounts) => {
 
     let startDate = await testInstance.startDate();
 //    let endDate   = await testInstance.endDate();
-//    assert.equal(startDate.toString(), '1617145200', `START DATE ERR`);
+    assert.equal(startDate.toString(), '1617145200', `START DATE ERR`);
 //    assert.equal(endDate.toString(), '1617231600', `END DATE ERR`);
 /*
     console.log(
@@ -59,6 +59,27 @@ contract('Test', async (accounts) => {
       console.log(out);
     }
     catch (error) {
+      console.log('error - mint msg.sender startDate in future -> ', startDate.toString());
+    }
+
+    // this sets startDate to past so minting is allowed for testing.
+    const sDate = new Date(2021, 2, 13);
+    const newStartDateInUnixTimestamp = sDate / 1000;
+    try {
+      await testInstance.setStartDate(newStartDateInUnixTimestamp, { from: accounts[1] });
+    }
+    catch (error) {
+      console.log('info - user not owner error');
+    }
+    await testInstance.setStartDate(newStartDateInUnixTimestamp);
+    console.log('info - mint msg.sender set startDate in pass to test minting -> ', startDate.toString());
+
+    try {
+      await testInstance.mint(2);
+      out = await testInstance.totalSupply();
+      console.log(out);
+    }
+    catch (error) {
       console.log('error - mint msg.sender in blacklist -> ', accounts[0]);
     }
 
@@ -82,15 +103,6 @@ contract('Test', async (accounts) => {
 
     out = await testInstance.totalSupply();
     console.log(out);
-/*
-    try {
-      check = await testInstance.blacklist(0);
-    }
-    catch (error) {
-      console.log('error blacklist(0)');
-    }
-*/
-
   })
 
 });

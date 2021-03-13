@@ -49,6 +49,12 @@ contract Test {
     // blacklist.add(msg.sender);
   }
 
+  function setStartDate(uint256 _startDate) public returns (bool status) {
+    require(owner == msg.sender);
+    startDate = _startDate;
+    return true;
+  }
+
   function lengthBlacklist() public returns (uint length) {
     return blacklist.lengthOf();
     // return length;
@@ -56,7 +62,7 @@ contract Test {
 
   function blacklistAdd(address to) public returns (bool success) {
     require(owner == msg.sender);
-    require(block.timestamp >= startDate);
+    // require(block.timestamp >= startDate);
     blacklist.add(to);
     emit LogBL(blacklist);
     return true;
@@ -71,6 +77,7 @@ contract Test {
 
   function mint(uint amount) public returns (bool success) {
     require(!blacklist.check(msg.sender));
+    require(block.timestamp >= startDate);
     totalSupply = totalSupply + amount;
     return true;
 /*
