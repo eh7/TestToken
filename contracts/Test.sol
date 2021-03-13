@@ -1,117 +1,90 @@
 pragma solidity >=0.4.22 <0.7.0;
 
-library Blacklist {
+library BlacklistLib {
+
+  function lengthOf(address[] storage self) internal returns (uint256) {
+    return self.length;
+  }
 
   function add(address[] storage blacklist, address blockAddress) internal {
     blacklist.push(blockAddress);
   }
 
-/*
-  function remove(address[] storage blacklist, address blockAddress) internal {
-    // delete blacklist[blacklist.indexOf(blockAddress)];
+  function remove(address[] storage blacklist, address thisAddress) internal {
     // blacklist.push(blockAddress);
+    for (uint i = 0; i < blacklist.length; i++)
+      if (blacklist[i] == thisAddress) {
+        address element = blacklist[i];
+        blacklist[i] = blacklist[blacklist.length - 1];
+        delete blacklist[blacklist.length - 1];
+        blacklist.length--;
+        // return element;
+      }
   }
 
-  function indexOf(address[] storage self, address thisAddress) public view returns (uint) {
-    for (uint i = 0; i < self.length; i++) if (self[i] == thisAddress) return i;
-    return uint(-1);
+  function check(address[] storage blacklist, address thisAddress) internal returns (bool status) {
+    for (uint i = 0; i < blacklist.length; i++)
+      if (blacklist[i] == thisAddress)
+        return true;
+    return false;
   }
-*/
-   
-
-/*
-  function add(mapping(address => bool) storage blacklist, address blockAddress) internal {
-    blacklist[blockAddress] = true;
-  }
-*/
-
-/*
-    function move(mapping(address => uint256) storage balances, address from, address to, uint amount) internal {
-        require(balances[from] >= amount);
-        require(balances[to] + amount >= balances[to]);
-        balances[from] -= amount;
-        balances[to] += amount;
-    }
-*/
 }
 
 contract Test {
 
   address[] public blacklist;
-  using Blacklist for *;
+  using BlacklistLib for *;
+
   address public owner;
+  uint256 public totalSupply;
+
+  event LogBL(address[] blacklist);
 
   constructor() public {
     owner = msg.sender;
+    totalSupply = 0;
     // blacklist.add(msg.sender);
     // blacklist.add(msg.sender);
+  }
+
+  function lengthBlacklist() public returns (uint length) {
+    return blacklist.lengthOf();
+    // return length;
   }
 
   function blacklistAdd(address to) public returns (bool success) {
+    require(owner == msg.sender);
     blacklist.add(to);
+    emit LogBL(blacklist);
     return true;
   }
 
+  function blacklistRemove(address removeAddress) public returns (bool success) {
+    require(owner == msg.sender);
+    blacklist.remove(removeAddress);
+    emit LogBL(blacklist);
+    return true;
+  }
+
+  function mint(uint amount) public returns (bool success) {
+    require(!blacklist.check(msg.sender));
+    totalSupply = totalSupply + amount;
+    return true;
+/*
+    if(blacklist.check(msg.sender)) {
+      totalSupply = totalSupply + amount;
+      return true;
+    }
+    return false;
+*/
+  }
+
+/*
   function indexOfAddressBlacklist(address to) public returns (uint index) {
 //    blacklist.indexOf(to);
     return 0;
     // return true;
   }
-/*
 */
-/*
-    mapping(address => uint256) balances;
-    using Balances for *;
-    mapping(address => mapping (address => uint256)) allowed;
 
-    event Transfer(address from, address to, uint amount);
-    event Approval(address owner, address spender, uint amount);
-
-    function balanceOf(address tokenOwner) public view returns (uint balance) {
-        return balances[tokenOwner];
-    }
-    function transfer(address to, uint amount) public returns (bool success) {
-        balances.move(msg.sender, to, amount);
-        emit Transfer(msg.sender, to, amount);
-        return true;
-
-    }
-
-
-  }
-
-
-/*
-    mapping(address => uint256) balances;
-    using Balances for *;
-    mapping(address => mapping (address => uint256)) allowed;
-
-    event Transfer(address from, address to, uint amount);
-    event Approval(address owner, address spender, uint amount);
-
-    function balanceOf(address tokenOwner) public view returns (uint balance) {
-        return balances[tokenOwner];
-    }
-    function transfer(address to, uint amount) public returns (bool success) {
-        balances.move(msg.sender, to, amount);
-        emit Transfer(msg.sender, to, amount);
-        return true;
-
-    }
-
-    function transferFrom(address from, address to, uint amount) public returns (bool success) {
-        require(allowed[from][msg.sender] >= amount);
-        allowed[from][msg.sender] -= amount;
-        balances.move(from, to, amount);
-        emit Transfer(from, to, amount);
-        return true;
-    }
-
-    function approve(address spender, uint tokens) public returns (bool success) {
-        require(allowed[msg.sender][spender] == 0, "");
-        allowed[msg.sender][spender] = tokens;
-        emit Approval(msg.sender, spender, tokens);
-        return true;
-    }
-*/
 }
