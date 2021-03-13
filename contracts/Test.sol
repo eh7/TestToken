@@ -2,7 +2,7 @@ pragma solidity >=0.4.22 <0.7.0;
 
 library BlacklistLib {
 
-  function lengthOf(address[] storage self) internal returns (uint256) {
+  function lengthOf(address[] storage self) view internal returns (uint256) {
     return self.length;
   }
 
@@ -22,7 +22,7 @@ library BlacklistLib {
       }
   }
 
-  function check(address[] storage blacklist, address thisAddress) internal returns (bool status) {
+  function check(address[] storage blacklist, address thisAddress) view internal returns (bool status) {
     for (uint i = 0; i < blacklist.length; i++)
       if (blacklist[i] == thisAddress)
         return true;
@@ -55,7 +55,7 @@ contract Test {
     return true;
   }
 
-  function lengthBlacklist() public returns (uint length) {
+  function lengthBlacklist() view public returns (uint length) {
     return blacklist.lengthOf();
     // return length;
   }
